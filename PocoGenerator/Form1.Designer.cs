@@ -32,6 +32,8 @@
             this.rtbTemplete = new System.Windows.Forms.RichTextBox();
             this.tab1 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.tbxoutputPath = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.cbxGenFile = new System.Windows.Forms.CheckBox();
             this.cbxSingleTable = new System.Windows.Forms.CheckBox();
@@ -95,8 +97,8 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.rblReadMe = new System.Windows.Forms.RichTextBox();
-            this.tbxoutputPath = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
+            this.cbxDTOMode = new System.Windows.Forms.CheckBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.tab2.SuspendLayout();
             this.tab1.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -153,6 +155,8 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.cbxDTOMode);
+            this.groupBox5.Controls.Add(this.label14);
             this.groupBox5.Controls.Add(this.tbxoutputPath);
             this.groupBox5.Controls.Add(this.label13);
             this.groupBox5.Controls.Add(this.label12);
@@ -174,6 +178,23 @@
             this.groupBox5.TabIndex = 1;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "產出設定";
+            // 
+            // tbxoutputPath
+            // 
+            this.tbxoutputPath.Location = new System.Drawing.Point(119, 234);
+            this.tbxoutputPath.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tbxoutputPath.Name = "tbxoutputPath";
+            this.tbxoutputPath.Size = new System.Drawing.Size(193, 25);
+            this.tbxoutputPath.TabIndex = 15;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(4, 244);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(90, 15);
+            this.label13.TabIndex = 14;
+            this.label13.Text = "Output Path：";
             // 
             // label12
             // 
@@ -270,7 +291,7 @@
             // 
             // tbxClassName
             // 
-            this.tbxClassName.Location = new System.Drawing.Point(119, 164);
+            this.tbxClassName.Location = new System.Drawing.Point(119, 194);
             this.tbxClassName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tbxClassName.Name = "tbxClassName";
             this.tbxClassName.Size = new System.Drawing.Size(193, 25);
@@ -279,7 +300,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(4, 174);
+            this.label4.Location = new System.Drawing.Point(4, 204);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(88, 15);
             this.label4.TabIndex = 2;
@@ -804,22 +825,24 @@
             this.rblReadMe.TabIndex = 0;
             this.rblReadMe.Text = "";
             // 
-            // tbxoutputPath
+            // cbxDTOMode
             // 
-            this.tbxoutputPath.Location = new System.Drawing.Point(119, 204);
-            this.tbxoutputPath.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tbxoutputPath.Name = "tbxoutputPath";
-            this.tbxoutputPath.Size = new System.Drawing.Size(193, 25);
-            this.tbxoutputPath.TabIndex = 15;
+            this.cbxDTOMode.AutoSize = true;
+            this.cbxDTOMode.Location = new System.Drawing.Point(120, 170);
+            this.cbxDTOMode.Name = "cbxDTOMode";
+            this.cbxDTOMode.Size = new System.Drawing.Size(18, 17);
+            this.cbxDTOMode.TabIndex = 17;
+            this.cbxDTOMode.UseVisualStyleBackColor = true;
+            this.cbxDTOMode.CheckedChanged += new System.EventHandler(this.cbxDTOMode_CheckedChanged);
             // 
-            // label13
+            // label14
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(4, 214);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(90, 15);
-            this.label13.TabIndex = 14;
-            this.label13.Text = "Output Path：";
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(6, 170);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(92, 15);
+            this.label14.TabIndex = 16;
+            this.label14.Text = "DTO Model：";
             // 
             // PocoFrom
             // 
@@ -920,6 +943,8 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox tbxoutputPath;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.CheckBox cbxDTOMode;
+        private System.Windows.Forms.Label label14;
     }
 }
 

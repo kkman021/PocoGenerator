@@ -38,6 +38,7 @@ namespace PocoGenerator
         }
 
         #region 控件連動事件
+
         private void ddlDbType_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlDbType.Text == "MSSQL")
@@ -84,16 +85,35 @@ namespace PocoGenerator
             if (cbxFormatErrorMsg.Checked)
                 cbxValidateAttr.Checked = true;
         }
-        #endregion
+
+        private void cbxDTOMode_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbxDTOMode.Checked)
+            {
+                this.cbxValidateAttr.Checked = false;
+                this.cbxFormatErrorMsg.Checked = false;
+                this.cbxValidateAttr.Enabled = false;
+                this.cbxFormatErrorMsg.Enabled = false;
+            }
+            else
+            {
+                this.cbxValidateAttr.Checked = true;
+                this.cbxFormatErrorMsg.Checked = true;
+                this.cbxValidateAttr.Enabled = true;
+                this.cbxFormatErrorMsg.Enabled = true;
+            }
+        }
+
+        #endregion 控件連動事件
 
         #region 開啟連線
+
         private void btnConnect_Click(object sender, EventArgs e)
         {
             try
             {
                 var helper = new PocoHelpers().GetPocoHelper(ddlDbType.Text, GetDBInfo());
                 gvTable.DataSource = helper.GetTableList();
-
             }
             catch (Exception ex)
             {
@@ -101,9 +121,11 @@ namespace PocoGenerator
                 return;
             }
         }
-        #endregion
+
+        #endregion 開啟連線
 
         #region Grid事件
+
         private void gvTable_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex != -1)
@@ -142,9 +164,11 @@ namespace PocoGenerator
                 this.btnRemove_Click(sender, e);
             }
         }
-        #endregion
+
+        #endregion Grid事件
 
         #region Grid選取功能
+
         /// <summary>
         /// 單筆加入
         /// </summary>
@@ -225,12 +249,15 @@ namespace PocoGenerator
         {
             this.gvSelect.Rows.Clear();
         }
-        #endregion
+
+        #endregion Grid選取功能
 
         #region 程式碼產生
+
         private void btnGenerator_Click(object sender, EventArgs e)
         {
             #region 資料驗證
+
             if (this.gvSelect.Rows.Count == 0)
             {
                 MessageBox.Show("欄位列表最少需有一筆資料", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -242,7 +269,8 @@ namespace PocoGenerator
                 MessageBox.Show("請輸入ClassName", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            #endregion
+
+            #endregion 資料驗證
 
             var pocoHelper = new PocoHelpers().GetPocoHelper(ddlDbType.Text);
 
@@ -261,6 +289,7 @@ namespace PocoGenerator
             this.rtbTemplete.LoadFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Template", "Template.Model.txt"), RichTextBoxStreamType.PlainText);
 
             #region Property 文字產生
+
             foreach (DataGridViewRow rowItem in this.gvSelect.Rows)
             {
                 var dbColumnName = Convert.ToString(rowItem.Cells[0].Value);
@@ -279,9 +308,15 @@ namespace PocoGenerator
                     dataType = String.Format("{0}?", dataType);
 
                 //Summary
-                sb.AppendLine("\t\t///<summary>");
-                sb.AppendLine(string.Format("\t\t///{0}", (string.IsNullOrWhiteSpace(dbDesc) ? dbColumnName : dbDesc)));
-                sb.AppendLine("\t\t///<summary>");
+                if (!cbxDTOMode.Checked)
+                {
+                    sb.AppendLine("\t\t///<summary>");
+                    sb.AppendLine(string.Format("\t\t///{0}", (string.IsNullOrWhiteSpace(dbDesc) ? dbColumnName : dbDesc)));
+                    sb.AppendLine("\t\t///<summary>");
+
+                    //Display Attribute
+                    sb.AppendLine(string.Format("\t\t[Display(Name = \"{0}\")]", (string.IsNullOrWhiteSpace(dbDesc) ? dbColumnName : dbDesc)));
+                }
 
                 // Validate Attribute
                 if (this.cbxValidateAttr.Checked)
@@ -289,14 +324,11 @@ namespace PocoGenerator
                     if (!dbNuable)
                         sb.AppendLine(string.Format("\t\t[Required(ErrorMessage = \"{0}\")]", requiredTipStr));
 
-                    if (!string.IsNullOrWhiteSpace(dbMaxLength))
+                    if (!string.IsNullOrWhiteSpace(dbMaxLength) && dbMaxLength != "-1")
                         sb.AppendLine(string.Format("\t\t[StringLength({0}, ErrorMessage = \"{1}{0}。\")]",
                                                         dbMaxLength,
                                                         maxLengthTipStr));
                 }
-
-                //Display Attribute
-                sb.AppendLine(string.Format("\t\t[Display(Name = \"{0}\")]", (string.IsNullOrWhiteSpace(dbDesc) ? dbColumnName : dbDesc)));
 
                 //Property
                 sb.AppendLine(string.Format("\t\tpublic {0} {1} {{ get; set; }}",
@@ -306,15 +338,17 @@ namespace PocoGenerator
 
                 sb.AppendLine("");
             }
-            #endregion
+
+            #endregion Property 文字產生
 
             this.rtbTemplete.Text = this.rtbTemplete.Text.Replace("<<className>>", tbxClassName.Text);
             this.rtbTemplete.Text = this.rtbTemplete.Text.Replace("<<propertyBlock>>", sb.ToString());
 
             #region 產出檔案
+
             if (cbxGenFile.Checked)
             {
-                var basePath = string.IsNullOrWhiteSpace(tbxoutputPath.Text) ? 
+                var basePath = string.IsNullOrWhiteSpace(tbxoutputPath.Text) ?
                                 Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "OutputFile") :
                                 tbxoutputPath.Text.Trim();
 
@@ -324,13 +358,16 @@ namespace PocoGenerator
                     outfile.Write(this.rtbTemplete.Text);
                 }
             }
-            #endregion
+
+            #endregion 產出檔案
 
             this.tabControl1.SelectedIndex = 1;
         }
-        #endregion
+
+        #endregion 程式碼產生
 
         #region 取DB物件
+
         private DBInfo GetDBInfo()
         {
             var dbInfo = new DBInfo()
@@ -346,6 +383,7 @@ namespace PocoGenerator
 
             return dbInfo;
         }
-        #endregion
+
+        #endregion 取DB物件
     }
 }
