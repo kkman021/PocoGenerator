@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PocoGenerator.PocoHelper
@@ -13,13 +12,15 @@ namespace PocoGenerator.PocoHelper
     public class OraclePocoHelper : IPocoHelper
     {
         #region Property
+
         public string _HostIP { get; private set; }
         public string _Port { get; private set; }
         public string _UserID { get; private set; }
         public string _UserPwd { get; private set; }
         public string _ServiceName { get; private set; }
         public string _OwnerName { get; set; }
-        #endregion
+
+        #endregion Property
 
         private const string connstrFormat = "Data Source=(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST = {0})(PORT = {4}))(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = {1})));User Id={2};Password={3};";
         private string connStr;
@@ -27,12 +28,12 @@ namespace PocoGenerator.PocoHelper
 
         public OraclePocoHelper()
         {
-
         }
 
         public OraclePocoHelper(DBInfo dbInfo)
         {
             #region 資料驗證
+
             if (dbInfo == null)
                 throw new ArgumentNullException("DBInfo", "參數遺失");
 
@@ -50,7 +51,8 @@ namespace PocoGenerator.PocoHelper
 
             if (string.IsNullOrWhiteSpace(dbInfo.UserPwd))
                 throw new ArgumentNullException("密碼", "必填");
-            #endregion
+
+            #endregion 資料驗證
 
             _HostIP = dbInfo.HostIP;
             _Port = dbInfo.Port;
@@ -62,8 +64,9 @@ namespace PocoGenerator.PocoHelper
         }
 
         #region 取得Table清單
+
         /// <summary>
-        /// 取得Table清單
+        /// 取得Table清單 
         /// </summary>
         /// <returns></returns>
         public DataView GetTableList()
@@ -86,12 +89,15 @@ namespace PocoGenerator.PocoHelper
 
             return GetDataView(oComm);
         }
-        #endregion
+
+        #endregion 取得Table清單
 
         #region 取得欄位清單
+
         public DataView GetColumnList(string tableID)
         {
             #region Query
+
             var query = @"SELECT C.COLUMN_NAME AS ColumnName,
                               DATA_TYPE          AS DataType,
                               DATA_LENGTH        AS LENGTH,
@@ -103,7 +109,8 @@ namespace PocoGenerator.PocoHelper
                                 WHEN F.COLUMN_NAME IS NULL
                                 THEN 'N'
                                 ELSE 'Y'
-                              END AS ISPrimaryKey
+                              END AS ISPrimaryKey,
+                              0 AS IsIdentity
                             FROM ALL_TAB_COLUMNS C
                               JOIN ALL_TABLES T
                                 ON C.OWNER       = T.OWNER
@@ -128,22 +135,25 @@ namespace PocoGenerator.PocoHelper
                             WHERE  C.TABLE_NAME          = :TableName
                             ORDER BY C.TABLE_NAME,C.COLUMN_ID
                             ";
-            #endregion
+
+            #endregion Query
 
             OracleCommand oComm = new OracleCommand(query);
             oComm.Parameters.Add(new OracleParameter("TableName", tableID));
 
             return GetDataView(oComm);
         }
-        #endregion
+
+        #endregion 取得欄位清單
 
         #region 型別轉換
+
         /// <summary>
-        /// 轉換資料型態Sql DataType => C# DataType
+        /// 轉換資料型態Sql DataType =&gt; C# DataType 
         /// </summary>
-        /// <param name="dbDataType">Sql DataType</param>
-        /// <param name="scale">小數點以後的位數</param>
-        /// <param name="precision">精準長度</param>
+        /// <param name="dbDataType"> Sql DataType </param>
+        /// <param name="scale"> 小數點以後的位數 </param>
+        /// <param name="precision"> 精準長度 </param>
         /// <returns></returns>
         public string GetDataType(string dbDataType, string scale = "", string precision = "")
         {
@@ -156,6 +166,7 @@ namespace PocoGenerator.PocoHelper
                 case "RAW":
                     result = "byte[]";
                     break;
+
                 case "CHAR":
                 case "CLOB":
                 case "NCHAR":
@@ -165,6 +176,7 @@ namespace PocoGenerator.PocoHelper
                 case "VARCHAR2":
                     result = "string";
                     break;
+
                 case "DATE":
                 case "TIMESTAMP":
                     result = "DateTime";
@@ -192,9 +204,11 @@ namespace PocoGenerator.PocoHelper
 
             return result;
         }
-        #endregion
+
+        #endregion 型別轉換
 
         #region 取得DataView
+
         private DataView GetDataView(OracleCommand oComm)
         {
             oConnection = new OracleConnection(connStr);
@@ -221,10 +235,11 @@ namespace PocoGenerator.PocoHelper
                 return ds.Tables[0].DefaultView;
             }
         }
-        #endregion
+
+        #endregion 取得DataView
 
         /// <summary>
-        /// 關閉連線
+        /// 關閉連線 
         /// </summary>
         private void CloseConn()
         {

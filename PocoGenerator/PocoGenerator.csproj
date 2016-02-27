@@ -66,6 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extension\ConfigHelper.cs" />
     <Compile Include="Factory\PocoHelperFactory.cs" />
     <Compile Include="Model\DBInfo.cs" />
     <Compile Include="Model\DBType.cs" />

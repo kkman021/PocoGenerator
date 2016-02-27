@@ -1,12 +1,8 @@
-﻿using PocoGenerator.Interface;
+﻿using PocoGenerator.Extension;
 using PocoGenerator.Model;
 using PocoGenerator.PocoHelper;
-using PocoGenerator.Extension;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -31,6 +27,15 @@ namespace PocoGenerator
             this.ddlDbType.SelectedIndex = 0;
 
             //設定預設值
+            tbxHost.Text = ConfigHelper.HostIP;
+            tbxPort.Text = ConfigHelper.Port;
+            tbxUserName.Text = ConfigHelper.UserID;
+            tbxPwd.Text = ConfigHelper.UserPwd;
+            tbxDBName.Text = ConfigHelper.DBName;
+            tbxDBOwner.Text = ConfigHelper.DBOwner;
+            cbxValidateByWindow.Checked = ConfigHelper.ValidateByWindow;
+            ddlDbType.SelectedIndex = ConfigHelper.DBType;
+
             this.tbxPort.Enabled = false;
             this.tbxDBOwner.Enabled = false;
             this.cbxOriColumnName.Checked = true;
@@ -112,8 +117,11 @@ namespace PocoGenerator
         {
             try
             {
-                var helper = new PocoHelpers().GetPocoHelper(ddlDbType.Text, GetDBInfo());
+                var dbInfo = GetDBInfo();
+                var helper = new PocoHelpers().GetPocoHelper(ddlDbType.Text, dbInfo);
                 gvTable.DataSource = helper.GetTableList();
+
+                ConfigHelper.UpdateDbInfo(dbInfo);
             }
             catch (Exception ex)
             {
@@ -147,9 +155,9 @@ namespace PocoGenerator
         {
             if (e.RowIndex != -1)
             {
-                // 選取欄變成選取資料列
+                // 選取欄變成選取資料列 
                 this.gvColumn.Rows[e.RowIndex].Selected = true;
-                // 開始加入資料列
+                // 開始加入資料列 
                 this.btnAdd_Click(sender, e);
             }
         }
@@ -158,9 +166,9 @@ namespace PocoGenerator
         {
             if (e.RowIndex != -1)
             {
-                // 選取欄變成選取資料列
+                // 選取欄變成選取資料列 
                 this.gvSelect.Rows[e.RowIndex].Selected = true;
-                // 開始加入資料列
+                // 開始加入資料列 
                 this.btnRemove_Click(sender, e);
             }
         }
@@ -170,24 +178,24 @@ namespace PocoGenerator
         #region Grid選取功能
 
         /// <summary>
-        /// 單筆加入
+        /// 單筆加入 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            // 選取欄變成選取資料列
+            // 選取欄變成選取資料列 
             foreach (DataGridViewCell gvcCell in this.gvColumn.SelectedCells)
             {
                 this.gvColumn.Rows[gvcCell.RowIndex].Selected = true;
             }
-            // 開始加入資料列
+            // 開始加入資料列 
             if (this.gvColumn.SelectedRows.Count > 0)
             {
-                // 加入資料列
+                // 加入資料列 
                 foreach (DataGridViewRow gvrRow in this.gvColumn.SelectedRows)
                 {
-                    // 加入選取的資料列資料
+                    // 加入選取的資料列資料 
                     this.gvSelect.Rows.Insert(0, new object[] {
                         gvrRow.Cells["ColumnName"].Value,
                         gvrRow.Cells["DataType"].Value,
@@ -196,14 +204,15 @@ namespace PocoGenerator
                         gvrRow.Cells["ISPrimaryKey"].Value,
                         gvrRow.Cells["ColumnDes"].Value,
                         gvrRow.Cells["Scale"].Value,
-                        gvrRow.Cells["Prec"].Value
+                        gvrRow.Cells["Prec"].Value,
+                        gvrRow.Cells["IsIdentity"].Value
                     });
                 }
             }
         }
 
         /// <summary>
-        /// 整批加入
+        /// 整批加入 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -212,34 +221,34 @@ namespace PocoGenerator
             if (cbxSingleTable.Checked)
                 btnAllRemove_Click(sender, e);
 
-            // 選取欄變成選取資料列
+            // 選取欄變成選取資料列 
             foreach (DataGridViewRow gvrRow in this.gvColumn.Rows)
             {
                 gvrRow.Selected = true;
             }
-            // 開始加入資料列
+            // 開始加入資料列 
             this.btnAdd_Click(sender, e);
         }
 
         /// <summary>
-        /// 單筆移除
+        /// 單筆移除 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            // 選取欄變成選取資料列
+            // 選取欄變成選取資料列 
             foreach (DataGridViewCell gvcCell in this.gvSelect.SelectedCells)
             {
                 this.gvSelect.Rows[gvcCell.RowIndex].Selected = true;
             }
-            // 開始加入資料列
+            // 開始加入資料列 
             if (this.gvSelect.SelectedRows.Count > 0)
             {
                 for (int i = this.gvSelect.SelectedRows.Count; i > 0; i--)
                 {
                     DataGridViewRow gvrRow = this.gvSelect.SelectedRows[i - 1];
-                    // 移除加入的欄位
+                    // 移除加入的欄位 
                     this.gvSelect.Rows.Remove(gvrRow);
                 }
             }
@@ -276,8 +285,8 @@ namespace PocoGenerator
 
             StringBuilder sb = new StringBuilder();
 
-            string requiredTipStr = System.Configuration.ConfigurationManager.AppSettings["RequiredStr"];
-            string maxLengthTipStr = System.Configuration.ConfigurationManager.AppSettings["MaxLengthStr"];
+            string requiredTipStr = ConfigHelper.RequiredStr;
+            string maxLengthTipStr = ConfigHelper.MaxLengthStr;
 
             if (cbxFormatErrorMsg.Checked)
             {
@@ -299,29 +308,39 @@ namespace PocoGenerator
                 var dbDesc = Convert.ToString(rowItem.Cells[5].Value);
                 var dbScale = Convert.ToString(rowItem.Cells[6].Value);
                 var dbPrecision = Convert.ToString(rowItem.Cells[7].Value);
+                var dbIsIdentity = Convert.ToBoolean(rowItem.Cells[8].Value);
 
-                // 轉換資料型態對應
+                // 轉換資料型態對應 
                 string dataType = pocoHelper.GetDataType(dbType, dbScale, dbPrecision);
 
-                // Nullable
+                // Nullable 
                 if (dbNuable && !new List<string>() { "object", "string", "byte[]" }.Contains(dataType))
                     dataType = String.Format("{0}?", dataType);
 
                 //Summary
-                if (!cbxDTOMode.Checked)
-                {
-                    sb.AppendLine("\t\t///<summary>");
-                    sb.AppendLine(string.Format("\t\t///{0}", (string.IsNullOrWhiteSpace(dbDesc) ? dbColumnName : dbDesc)));
-                    sb.AppendLine("\t\t///<summary>");
+                sb.AppendLine("\t\t///<summary>");
+                sb.AppendLine(string.Format("\t\t///{0}", (string.IsNullOrWhiteSpace(dbDesc) ? dbColumnName : dbDesc)));
+                sb.AppendLine("\t\t///<summary>");
 
-                    //Display Attribute
-                    sb.AppendLine(string.Format("\t\t[Display(Name = \"{0}\")]", (string.IsNullOrWhiteSpace(dbDesc) ? dbColumnName : dbDesc)));
-                }
+                //DB自動編號產生Remarks
+                if (dbIsIdentity)
+                    sb.AppendLine("\t\t///<remarks>Identity Specification Is Identity</remarks>");
 
-                // Validate Attribute
+                // Validate Attribute 
                 if (this.cbxValidateAttr.Checked)
                 {
-                    if (!dbNuable)
+                    if (dbColumnName.ToLower().Contains("url"))
+                        sb.AppendLine(string.Format("\t\t[Url]", requiredTipStr));
+
+                    if (dbColumnName.ToLower().Contains("email"))
+                        sb.AppendLine(string.Format("\t\t[EmailAddress]", requiredTipStr));
+
+                    if (dbColumnName.ToLower().Contains("datetime"))
+                        sb.AppendLine(string.Format("\t\t[DisplayFormat(DataFormatString = \"{0:yyyy/MM/dd HH:mm}\", ApplyFormatInEditMode = true)]", requiredTipStr));
+                    else if (dbColumnName.ToLower().Contains("date"))
+                        sb.AppendLine(string.Format("\t\t[DisplayFormat(DataFormatString = \"{0:yyyy/MM/dd}\", ApplyFormatInEditMode = true)]", requiredTipStr));
+
+                    if (!dbNuable && !dbIsIdentity)
                         sb.AppendLine(string.Format("\t\t[Required(ErrorMessage = \"{0}\")]", requiredTipStr));
 
                     if (!string.IsNullOrWhiteSpace(dbMaxLength) && dbMaxLength != "-1")
@@ -372,6 +391,7 @@ namespace PocoGenerator
         {
             var dbInfo = new DBInfo()
             {
+                DBType = ddlDbType.SelectedIndex,
                 HostIP = tbxHost.Text.Trim(),
                 Port = tbxPort.Text.Trim(),
                 UserID = tbxUserName.Text.Trim(),
