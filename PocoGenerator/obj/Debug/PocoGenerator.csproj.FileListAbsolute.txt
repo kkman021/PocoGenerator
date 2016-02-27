@@ -32,3 +32,13 @@ W:\PocoGenerator\PocoGenerator\obj\Debug\PocoGenerator.csproj.GenerateResource.C
 W:\PocoGenerator\PocoGenerator\bin\Debug\PocoGenerator.exe
 W:\PocoGenerator\PocoGenerator\bin\Debug\PocoGenerator.pdb
 W:\PocoGenerator\PocoGenerator\bin\Debug\Oracle.ManagedDataAccess.dll
+H:\PocoGenerator\PocoGenerator\bin\Debug\PocoGenerator.exe.config
+H:\PocoGenerator\PocoGenerator\obj\Debug\PocoGenerator.exe
+H:\PocoGenerator\PocoGenerator\obj\Debug\PocoGenerator.pdb
+H:\PocoGenerator\PocoGenerator\bin\Debug\PocoGenerator.exe
+H:\PocoGenerator\PocoGenerator\bin\Debug\PocoGenerator.pdb
+H:\PocoGenerator\PocoGenerator\bin\Debug\Oracle.ManagedDataAccess.dll
+H:\PocoGenerator\PocoGenerator\obj\Debug\PocoGenerator.csprojResolveAssemblyReference.cache
+H:\PocoGenerator\PocoGenerator\obj\Debug\PocoGenerator.PocoFrom.resources
+H:\PocoGenerator\PocoGenerator\obj\Debug\PocoGenerator.Properties.Resources.resources
+H:\PocoGenerator\PocoGenerator\obj\Debug\PocoGenerator.csproj.GenerateResource.Cache

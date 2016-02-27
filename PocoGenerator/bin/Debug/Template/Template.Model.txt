@@ -13,6 +13,6 @@ namespace Model
 	/// </summary>
 	public class <<className>>Model
 	{
-<<methodName>>
+<<propertyBlock>>
 	}
 }
