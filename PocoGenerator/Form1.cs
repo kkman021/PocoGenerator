@@ -320,7 +320,7 @@ namespace PocoGenerator
                 //Summary
                 sb.AppendLine("\t\t///<summary>");
                 sb.AppendLine(string.Format("\t\t///{0}", (string.IsNullOrWhiteSpace(dbDesc) ? dbColumnName : dbDesc)));
-                sb.AppendLine("\t\t///<summary>");
+                sb.AppendLine("\t\t///</summary>");
 
                 //DB自動編號產生Remarks
                 if (dbIsIdentity)
@@ -330,15 +330,15 @@ namespace PocoGenerator
                 if (this.cbxValidateAttr.Checked)
                 {
                     if (dbColumnName.ToLower().Contains("url"))
-                        sb.AppendLine(string.Format("\t\t[Url]", requiredTipStr));
+                        sb.AppendLine("\t\t[Url]");
 
                     if (dbColumnName.ToLower().Contains("email"))
-                        sb.AppendLine(string.Format("\t\t[EmailAddress]", requiredTipStr));
+                        sb.AppendLine("\t\t[EmailAddress]");
 
                     if (dbColumnName.ToLower().Contains("datetime"))
-                        sb.AppendLine(string.Format("\t\t[DisplayFormat(DataFormatString = \"{0:yyyy/MM/dd HH:mm}\", ApplyFormatInEditMode = true)]", requiredTipStr));
+                        sb.AppendLine("\t\t[DisplayFormat(DataFormatString = \"{0:yyyy/MM/dd HH:mm}\", ApplyFormatInEditMode = true)]");
                     else if (dbColumnName.ToLower().Contains("date"))
-                        sb.AppendLine(string.Format("\t\t[DisplayFormat(DataFormatString = \"{0:yyyy/MM/dd}\", ApplyFormatInEditMode = true)]", requiredTipStr));
+                        sb.AppendLine("\t\t[DisplayFormat(DataFormatString = \"{0:yyyy/MM/dd}\", ApplyFormatInEditMode = true)]");
 
                     if (!dbNuable && !dbIsIdentity)
                         sb.AppendLine(string.Format("\t\t[Required(ErrorMessage = \"{0}\")]", requiredTipStr));
