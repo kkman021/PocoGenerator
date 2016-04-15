@@ -27,14 +27,14 @@ namespace PocoGenerator
             this.ddlDbType.SelectedIndex = 0;
 
             //設定預設值
-            tbxHost.Text = ConfigHelper.HostIP;
+            tbxHost.Text = ConfigHelper.HostIp;
             tbxPort.Text = ConfigHelper.Port;
-            tbxUserName.Text = ConfigHelper.UserID;
+            tbxUserName.Text = ConfigHelper.UserId;
             tbxPwd.Text = ConfigHelper.UserPwd;
-            tbxDBName.Text = ConfigHelper.DBName;
-            tbxDBOwner.Text = ConfigHelper.DBOwner;
+            tbxDBName.Text = ConfigHelper.DbName;
+            tbxDBOwner.Text = ConfigHelper.DbOwner;
             cbxValidateByWindow.Checked = ConfigHelper.ValidateByWindow;
-            ddlDbType.SelectedIndex = ConfigHelper.DBType;
+            ddlDbType.SelectedIndex = ConfigHelper.DbType;
 
             this.tbxPort.Enabled = false;
             this.tbxDBOwner.Enabled = false;

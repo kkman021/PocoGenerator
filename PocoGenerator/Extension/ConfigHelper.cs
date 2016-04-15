@@ -12,14 +12,14 @@ namespace PocoGenerator.Extension
     {
         public static string RequiredStr => ConfigurationManager.AppSettings["RequiredStr"];
         public static string MaxLengthStr => ConfigurationManager.AppSettings["MaxLengthStr"];
-        public static string HostIP => ConfigurationManager.AppSettings["HostIP"];
+        public static string HostIp => ConfigurationManager.AppSettings["HostIP"];
         public static string Port => ConfigurationManager.AppSettings["Port"];
-        public static string UserID => ConfigurationManager.AppSettings["UserID"];
+        public static string UserId => ConfigurationManager.AppSettings["UserID"];
         public static string UserPwd => ConfigurationManager.AppSettings["UserPwd"];
-        public static string DBName => ConfigurationManager.AppSettings["DBName"];
-        public static string DBOwner => ConfigurationManager.AppSettings["DBOwner"];
-        public static int DBType => Convert.ToInt32(ConfigurationManager.AppSettings["DBType"]);
-        public static bool ValidateByWindow => Convert.ToBoolean(ConfigurationManager.AppSettings["ValidateByWindow"]);
+        public static string DbName => ConfigurationManager.AppSettings["DBName"];
+        public static string DbOwner => ConfigurationManager.AppSettings["DBOwner"];
+        public static int DbType => string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["DBType"]) ? 0 : Convert.ToInt32(ConfigurationManager.AppSettings["DBType"]);
+        public static bool ValidateByWindow => !string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["ValidateByWindow"]) && Convert.ToBoolean(ConfigurationManager.AppSettings["ValidateByWindow"]);
 
         /// <summary>
         /// 更新App.Config 中AppSetting 
