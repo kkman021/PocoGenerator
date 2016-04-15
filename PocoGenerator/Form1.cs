@@ -335,9 +335,9 @@ namespace PocoGenerator
                     if (dbColumnName.ToLower().Contains("email"))
                         sb.AppendLine("\t\t[EmailAddress]");
 
-                    if (dbColumnName.ToLower().Contains("datetime"))
+                    if (dbColumnName.ToLower().Contains("datetime") || dbType.ToLower().Contains("datetime"))
                         sb.AppendLine("\t\t[DisplayFormat(DataFormatString = \"{0:yyyy/MM/dd HH:mm}\", ApplyFormatInEditMode = true)]");
-                    else if (dbColumnName.ToLower().Contains("date"))
+                    else if (dbColumnName.ToLower().Contains("date") || dbType.ToLower().Contains("date"))
                         sb.AppendLine("\t\t[DisplayFormat(DataFormatString = \"{0:yyyy/MM/dd}\", ApplyFormatInEditMode = true)]");
 
                     if (!dbNuable && !dbIsIdentity)
