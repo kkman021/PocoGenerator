@@ -26,7 +26,6 @@ E:\PocoGenerator\PocoGenerator\obj\Debug\PocoGenerator.csprojResolveAssemblyRefe
 W:\PocoGenerator\PocoGenerator\bin\Debug\PocoGenerator.exe.config
 W:\PocoGenerator\PocoGenerator\obj\Debug\PocoGenerator.exe
 W:\PocoGenerator\PocoGenerator\obj\Debug\PocoGenerator.pdb
-W:\PocoGenerator\PocoGenerator\obj\Debug\PocoGenerator.Form1.resources
 W:\PocoGenerator\PocoGenerator\obj\Debug\PocoGenerator.Properties.Resources.resources
 W:\PocoGenerator\PocoGenerator\obj\Debug\PocoGenerator.csproj.GenerateResource.Cache
 W:\PocoGenerator\PocoGenerator\bin\Debug\PocoGenerator.exe
@@ -42,3 +41,5 @@ H:\PocoGenerator\PocoGenerator\obj\Debug\PocoGenerator.csprojResolveAssemblyRefe
 H:\PocoGenerator\PocoGenerator\obj\Debug\PocoGenerator.PocoFrom.resources
 H:\PocoGenerator\PocoGenerator\obj\Debug\PocoGenerator.Properties.Resources.resources
 H:\PocoGenerator\PocoGenerator\obj\Debug\PocoGenerator.csproj.GenerateResource.Cache
+W:\PocoGenerator\PocoGenerator\obj\Debug\PocoGenerator.csprojResolveAssemblyReference.cache
+W:\PocoGenerator\PocoGenerator\obj\Debug\PocoGenerator.PocoFrom.resources
