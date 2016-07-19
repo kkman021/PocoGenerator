@@ -329,6 +329,8 @@ namespace PocoGenerator
                 // Validate Attribute 
                 if (this.cbxValidateAttr.Checked)
                 {
+                    sb.AppendLine(string.Format("\t\t[Display(Name = \"{0}\")]", dbDesc));
+
                     if (dbColumnName.ToLower().Contains("url"))
                         sb.AppendLine("\t\t[Url]");
 
