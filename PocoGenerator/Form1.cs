@@ -18,8 +18,8 @@ namespace PocoGenerator
             InitializeComponent();
 
             var dbTypes = new DBTypes();
-            dbTypes.Add(new DBType() { Name = "MSSQL" });
-            dbTypes.Add(new DBType() { Name = "Oracle" });
+            dbTypes.Add(new DBType() {Name = "MSSQL"});
+            dbTypes.Add(new DBType() {Name = "Oracle"});
 
             this.ddlDbType.DataSource = dbTypes;
             this.ddlDbType.DisplayMember = "Name";
@@ -39,7 +39,8 @@ namespace PocoGenerator
             this.tbxPort.Enabled = false;
             this.tbxDBOwner.Enabled = false;
             this.cbxOriColumnName.Checked = true;
-            this.rblReadMe.LoadFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ReadMe.txt"), RichTextBoxStreamType.PlainText);
+            this.rblReadMe.LoadFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ReadMe.txt"),
+                RichTextBoxStreamType.PlainText);
         }
 
         #region 控件連動事件
@@ -155,9 +156,9 @@ namespace PocoGenerator
         {
             if (e.RowIndex != -1)
             {
-                // 選取欄變成選取資料列 
+                // 選取欄變成選取資料列
                 this.gvColumn.Rows[e.RowIndex].Selected = true;
-                // 開始加入資料列 
+                // 開始加入資料列
                 this.btnAdd_Click(sender, e);
             }
         }
@@ -166,9 +167,9 @@ namespace PocoGenerator
         {
             if (e.RowIndex != -1)
             {
-                // 選取欄變成選取資料列 
+                // 選取欄變成選取資料列
                 this.gvSelect.Rows[e.RowIndex].Selected = true;
-                // 開始加入資料列 
+                // 開始加入資料列
                 this.btnRemove_Click(sender, e);
             }
         }
@@ -178,41 +179,42 @@ namespace PocoGenerator
         #region Grid選取功能
 
         /// <summary>
-        /// 單筆加入 
+        /// 單筆加入
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            // 選取欄變成選取資料列 
+            // 選取欄變成選取資料列
             foreach (DataGridViewCell gvcCell in this.gvColumn.SelectedCells)
             {
                 this.gvColumn.Rows[gvcCell.RowIndex].Selected = true;
             }
-            // 開始加入資料列 
+            // 開始加入資料列
             if (this.gvColumn.SelectedRows.Count > 0)
             {
-                // 加入資料列 
+                // 加入資料列
                 foreach (DataGridViewRow gvrRow in this.gvColumn.SelectedRows)
                 {
-                    // 加入選取的資料列資料 
-                    this.gvSelect.Rows.Insert(0, new object[] {
-                        gvrRow.Cells["ColumnName"].Value,
-                        gvrRow.Cells["DataType"].Value,
-                        gvrRow.Cells["Length"].Value,
-                        gvrRow.Cells["IsNullable"].Value,
-                        gvrRow.Cells["ISPrimaryKey"].Value,
-                        gvrRow.Cells["ColumnDes"].Value,
-                        gvrRow.Cells["Scale"].Value,
-                        gvrRow.Cells["Prec"].Value,
-                        gvrRow.Cells["IsIdentity"].Value
-                    });
+                    // 加入選取的資料列資料
+                    this.gvSelect.Rows.Insert(0, new object[]
+                                                 {
+                                                     gvrRow.Cells["ColumnName"].Value,
+                                                     gvrRow.Cells["DataType"].Value,
+                                                     gvrRow.Cells["Length"].Value,
+                                                     gvrRow.Cells["IsNullable"].Value,
+                                                     gvrRow.Cells["ISPrimaryKey"].Value,
+                                                     gvrRow.Cells["ColumnDes"].Value,
+                                                     gvrRow.Cells["Scale"].Value,
+                                                     gvrRow.Cells["Prec"].Value,
+                                                     gvrRow.Cells["IsIdentity"].Value
+                                                 });
                 }
             }
         }
 
         /// <summary>
-        /// 整批加入 
+        /// 整批加入
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -221,34 +223,34 @@ namespace PocoGenerator
             if (cbxSingleTable.Checked)
                 btnAllRemove_Click(sender, e);
 
-            // 選取欄變成選取資料列 
+            // 選取欄變成選取資料列
             foreach (DataGridViewRow gvrRow in this.gvColumn.Rows)
             {
                 gvrRow.Selected = true;
             }
-            // 開始加入資料列 
+            // 開始加入資料列
             this.btnAdd_Click(sender, e);
         }
 
         /// <summary>
-        /// 單筆移除 
+        /// 單筆移除
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            // 選取欄變成選取資料列 
+            // 選取欄變成選取資料列
             foreach (DataGridViewCell gvcCell in this.gvSelect.SelectedCells)
             {
                 this.gvSelect.Rows[gvcCell.RowIndex].Selected = true;
             }
-            // 開始加入資料列 
+            // 開始加入資料列
             if (this.gvSelect.SelectedRows.Count > 0)
             {
                 for (int i = this.gvSelect.SelectedRows.Count; i > 0; i--)
                 {
                     DataGridViewRow gvrRow = this.gvSelect.SelectedRows[i - 1];
-                    // 移除加入的欄位 
+                    // 移除加入的欄位
                     this.gvSelect.Rows.Remove(gvrRow);
                 }
             }
@@ -284,6 +286,10 @@ namespace PocoGenerator
             var pocoHelper = new PocoHelpers().GetPocoHelper(ddlDbType.Text);
 
             StringBuilder sb = new StringBuilder();
+            var spColumns = new StringBuilder();
+            var spConditions = new StringBuilder();
+            var spParamters = new StringBuilder();
+            var spUpdateColumns = new StringBuilder();
 
             string requiredTipStr = ConfigHelper.RequiredStr;
             string maxLengthTipStr = ConfigHelper.MaxLengthStr;
@@ -294,9 +300,6 @@ namespace PocoGenerator
                 maxLengthTipStr = "{0}" + maxLengthTipStr;
             }
 
-            //載入Template
-            this.rtbTemplete.LoadFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Template", "Template.Model.txt"), RichTextBoxStreamType.PlainText);
-
             #region Property 文字產生
 
             foreach (DataGridViewRow rowItem in this.gvSelect.Rows)
@@ -304,17 +307,36 @@ namespace PocoGenerator
                 var dbColumnName = Convert.ToString(rowItem.Cells[0].Value);
                 var dbType = Convert.ToString(rowItem.Cells[1].Value);
                 var dbMaxLength = Convert.ToString(rowItem.Cells[2].Value);
-                var dbNuable = Convert.ToString(rowItem.Cells[3].Value) == "Y" || Convert.ToString(rowItem.Cells[3].Value).ToUpper() == "TRUE";
+                var dbNuable = Convert.ToString(rowItem.Cells[3].Value) == "Y" ||
+                               Convert.ToString(rowItem.Cells[3].Value).ToUpper() == "TRUE";
                 var dbDesc = Convert.ToString(rowItem.Cells[5].Value);
                 var dbScale = Convert.ToString(rowItem.Cells[6].Value);
                 var dbPrecision = Convert.ToString(rowItem.Cells[7].Value);
                 var dbIsIdentity = Convert.ToBoolean(rowItem.Cells[8].Value);
 
-                // 轉換資料型態對應 
+                #region SP產生
+
+                spColumns.Append(dbColumnName + " ,");
+                spConditions.Append("@" + dbColumnName + " ,");
+
+                var spParamter = $"@{dbColumnName} {dbType.ToUpper()}";
+                if (!string.IsNullOrWhiteSpace(dbMaxLength))
+                {
+                    var max = dbMaxLength == "-1" ? "MAX" : dbMaxLength;
+                    spParamter += $"({max})";
+                }
+                spParamter += " ,";
+                spParamters.AppendLine(spParamter);
+
+                spUpdateColumns.AppendLine($"{dbColumnName} = @{dbColumnName} ,");
+
+                #endregion
+
+                // 轉換資料型態對應
                 string dataType = pocoHelper.GetDataType(dbType, dbScale, dbPrecision);
 
-                // Nullable 
-                if (dbNuable && !new List<string>() { "object", "string", "byte[]" }.Contains(dataType))
+                // Nullable
+                if (dbNuable && !new List<string>() {"object", "string", "byte[]"}.Contains(dataType))
                     dataType = String.Format("{0}?", dataType);
 
                 //Summary
@@ -326,7 +348,7 @@ namespace PocoGenerator
                 if (dbIsIdentity)
                     sb.AppendLine("\t\t///<remarks>Identity Specification Is Identity</remarks>");
 
-                // Validate Attribute 
+                // Validate Attribute
                 if (this.cbxValidateAttr.Checked)
                 {
                     sb.AppendLine(string.Format("\t\t[Display(Name = \"{0}\")]", dbDesc));
@@ -338,40 +360,85 @@ namespace PocoGenerator
                         sb.AppendLine("\t\t[EmailAddress]");
 
                     if (dbColumnName.ToLower().Contains("datetime") || dbType.ToLower().Contains("datetime"))
-                        sb.AppendLine("\t\t[DisplayFormat(DataFormatString = \"{0:yyyy/MM/dd HH:mm}\", ApplyFormatInEditMode = true)]");
+                        sb.AppendLine(
+                            "\t\t[DisplayFormat(DataFormatString = \"{0:yyyy/MM/dd HH:mm}\", ApplyFormatInEditMode = true)]");
                     else if (dbColumnName.ToLower().Contains("date") || dbType.ToLower().Contains("date"))
-                        sb.AppendLine("\t\t[DisplayFormat(DataFormatString = \"{0:yyyy/MM/dd}\", ApplyFormatInEditMode = true)]");
+                        sb.AppendLine(
+                            "\t\t[DisplayFormat(DataFormatString = \"{0:yyyy/MM/dd}\", ApplyFormatInEditMode = true)]");
 
                     if (!dbNuable && !dbIsIdentity)
                         sb.AppendLine(string.Format("\t\t[Required(ErrorMessage = \"{0}\")]", requiredTipStr));
 
                     if (!string.IsNullOrWhiteSpace(dbMaxLength) && dbMaxLength != "-1")
                         sb.AppendLine(string.Format("\t\t[StringLength({0}, ErrorMessage = \"{1}{0}。\")]",
-                                                        dbMaxLength,
-                                                        maxLengthTipStr));
+                            dbMaxLength,
+                            maxLengthTipStr));
                 }
 
                 //Property
                 sb.AppendLine(string.Format("\t\tpublic {0} {1} {{ get; set; }}",
-                                                dataType,
-                                                (cbxOriColumnName.Checked ? dbColumnName : dbColumnName.FormatColumnName())
-                                            ));
+                    dataType,
+                    (cbxOriColumnName.Checked ? dbColumnName : dbColumnName.FormatColumnName())
+                    ));
 
                 sb.AppendLine("");
             }
 
             #endregion Property 文字產生
 
+            //載入Template
+            this.rtbTemplete.LoadFile(
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Template", "Template.Model.txt"),
+                RichTextBoxStreamType.PlainText);
             this.rtbTemplete.Text = this.rtbTemplete.Text.Replace("<<className>>", tbxClassName.Text);
             this.rtbTemplete.Text = this.rtbTemplete.Text.Replace("<<propertyBlock>>", sb.ToString());
+
+            #region 產生Insert SP
+
+            this.rtbxInsertSP.LoadFile(
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Template", "Template.InsertSP.txt"),
+                RichTextBoxStreamType.PlainText);
+
+            this.rtbxInsertSP.Text = this.rtbxInsertSP.Text.Replace("<<className>>", tbxClassName.Text);
+            this.rtbxInsertSP.Text = this.rtbxInsertSP.Text.Replace("<<procedureColumns>>", spColumns.ToString().TrimEnd(','));
+            this.rtbxInsertSP.Text = this.rtbxInsertSP.Text.Replace("<<procedureCondition>>", spConditions.ToString().TrimEnd(','));
+            this.rtbxInsertSP.Text = this.rtbxInsertSP.Text.Replace("<<procedureParameters>>", spParamters.ToString().Trim().TrimEnd(','));
+
+            #endregion
+
+            #region 產生Update SP
+
+            this.rtbxUpdateSP.LoadFile(
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Template", "Template.UpdateSP.txt"),
+                RichTextBoxStreamType.PlainText);
+
+            this.rtbxUpdateSP.Text = this.rtbxUpdateSP.Text.Replace("<<className>>", tbxClassName.Text);
+            this.rtbxUpdateSP.Text = this.rtbxUpdateSP.Text.Replace("<<UpdateColumns>>", spUpdateColumns.ToString().Trim().TrimEnd(','));
+            this.rtbxUpdateSP.Text = this.rtbxUpdateSP.Text.Replace("<<procedureParameters>>", spParamters.ToString().Trim().TrimEnd(','));
+
+            #endregion
+
+            #region 產生分頁Query SP
+
+            this.rbxPagingQuery.LoadFile(
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Template", "Template.GetPagingtSP.txt"),
+                RichTextBoxStreamType.PlainText);
+
+            var firstColumnName = gvSelect.Rows[0].Cells[0].Value.ToString();
+
+            this.rbxPagingQuery.Text = this.rbxPagingQuery.Text.Replace("<<className>>", tbxClassName.Text);
+            this.rbxPagingQuery.Text = this.rbxPagingQuery.Text.Replace("<<FirstColumn>>", firstColumnName);
+            this.rbxPagingQuery.Text = this.rbxPagingQuery.Text.Replace("<<procedureColumns>>", spColumns.ToString().Trim().TrimEnd(','));
+
+            #endregion
 
             #region 產出檔案
 
             if (cbxGenFile.Checked)
             {
-                var basePath = string.IsNullOrWhiteSpace(tbxoutputPath.Text) ?
-                                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "OutputFile") :
-                                tbxoutputPath.Text.Trim();
+                var basePath = string.IsNullOrWhiteSpace(tbxoutputPath.Text)
+                    ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "OutputFile")
+                    : tbxoutputPath.Text.Trim();
 
                 var path = Path.Combine(basePath, tbxClassName.Text + ".cs");
                 using (StreamWriter outfile = new StreamWriter(path))
@@ -392,16 +459,16 @@ namespace PocoGenerator
         private DBInfo GetDBInfo()
         {
             var dbInfo = new DBInfo()
-            {
-                DBType = ddlDbType.SelectedIndex,
-                HostIP = tbxHost.Text.Trim(),
-                Port = tbxPort.Text.Trim(),
-                UserID = tbxUserName.Text.Trim(),
-                UserPwd = tbxPwd.Text.Trim(),
-                DBName = tbxDBName.Text.Trim(),
-                ValidateByWindow = cbxValidateByWindow.Checked,
-                DBOwner = tbxDBOwner.Text.Trim()
-            };
+                         {
+                             DBType = ddlDbType.SelectedIndex,
+                             HostIP = tbxHost.Text.Trim(),
+                             Port = tbxPort.Text.Trim(),
+                             UserID = tbxUserName.Text.Trim(),
+                             UserPwd = tbxPwd.Text.Trim(),
+                             DBName = tbxDBName.Text.Trim(),
+                             ValidateByWindow = cbxValidateByWindow.Checked,
+                             DBOwner = tbxDBOwner.Text.Trim()
+                         };
 
             return dbInfo;
         }

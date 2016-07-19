@@ -55,8 +55,26 @@
             this.btnAllDown = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.gvSelect = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IsIdentityNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.gvColumn = new System.Windows.Forms.DataGridView();
+            this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DataType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Length = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IsNullable = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ISPrimaryKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnDes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IsIdentity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Scale = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Prec = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.gvTable = new System.Windows.Forms.DataGridView();
             this.tableID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -83,24 +101,12 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.rblReadMe = new System.Windows.Forms.RichTextBox();
-            this.ColumnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DataType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Length = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IsNullable = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ISPrimaryKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnDes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IsIdentity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Scale = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Prec = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IsIdentityNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.rtbxInsertSP = new System.Windows.Forms.RichTextBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.rtbxUpdateSP = new System.Windows.Forms.RichTextBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.rbxPagingQuery = new System.Windows.Forms.RichTextBox();
             this.tab2.SuspendLayout();
             this.tab1.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -113,6 +119,9 @@
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tab2
@@ -417,6 +426,74 @@
             this.gvSelect.TabIndex = 0;
             this.gvSelect.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvSelect_CellDoubleClick);
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "ColumnName";
+            this.dataGridViewTextBoxColumn1.HeaderText = "名稱";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 200;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "DataType";
+            this.dataGridViewTextBoxColumn2.HeaderText = "型別";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "Length";
+            this.dataGridViewTextBoxColumn3.HeaderText = "長度";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "IsNullable";
+            this.dataGridViewTextBoxColumn6.HeaderText = "Null?";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            this.dataGridViewTextBoxColumn6.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.DataPropertyName = "ISPrimaryKey";
+            this.dataGridViewTextBoxColumn8.HeaderText = "PKey";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.ReadOnly = true;
+            this.dataGridViewTextBoxColumn8.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "ColumnDes";
+            this.dataGridViewTextBoxColumn7.HeaderText = "欄位描述";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            this.dataGridViewTextBoxColumn7.Width = 250;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "Scale";
+            this.dataGridViewTextBoxColumn5.HeaderText = "點後位數";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "Prec";
+            this.dataGridViewTextBoxColumn4.HeaderText = "精準長度";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
+            // IsIdentityNo
+            // 
+            this.IsIdentityNo.DataPropertyName = "IsIdentity";
+            this.IsIdentityNo.HeaderText = "是否流水編號";
+            this.IsIdentityNo.Name = "IsIdentityNo";
+            this.IsIdentityNo.ReadOnly = true;
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.gvColumn);
@@ -452,6 +529,76 @@
             this.gvColumn.Size = new System.Drawing.Size(771, 302);
             this.gvColumn.TabIndex = 0;
             this.gvColumn.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvColumn_CellDoubleClick);
+            // 
+            // ColumnName
+            // 
+            this.ColumnName.DataPropertyName = "ColumnName";
+            this.ColumnName.HeaderText = "名稱";
+            this.ColumnName.Name = "ColumnName";
+            this.ColumnName.ReadOnly = true;
+            this.ColumnName.Width = 150;
+            // 
+            // DataType
+            // 
+            this.DataType.DataPropertyName = "DataType";
+            this.DataType.HeaderText = "型別";
+            this.DataType.Name = "DataType";
+            this.DataType.ReadOnly = true;
+            // 
+            // Length
+            // 
+            this.Length.DataPropertyName = "Length";
+            this.Length.HeaderText = "長度";
+            this.Length.Name = "Length";
+            this.Length.ReadOnly = true;
+            this.Length.Width = 50;
+            // 
+            // IsNullable
+            // 
+            this.IsNullable.DataPropertyName = "IsNullable";
+            this.IsNullable.HeaderText = "Null?";
+            this.IsNullable.Name = "IsNullable";
+            this.IsNullable.ReadOnly = true;
+            this.IsNullable.Width = 50;
+            // 
+            // ISPrimaryKey
+            // 
+            this.ISPrimaryKey.DataPropertyName = "ISPrimaryKey";
+            this.ISPrimaryKey.HeaderText = "PKey";
+            this.ISPrimaryKey.Name = "ISPrimaryKey";
+            this.ISPrimaryKey.ReadOnly = true;
+            this.ISPrimaryKey.Width = 50;
+            // 
+            // ColumnDes
+            // 
+            this.ColumnDes.DataPropertyName = "ColumnDes";
+            this.ColumnDes.HeaderText = "欄位描述";
+            this.ColumnDes.Name = "ColumnDes";
+            this.ColumnDes.ReadOnly = true;
+            this.ColumnDes.Width = 150;
+            // 
+            // IsIdentity
+            // 
+            this.IsIdentity.DataPropertyName = "IsIdentity";
+            this.IsIdentity.HeaderText = "是否流水編號";
+            this.IsIdentity.Name = "IsIdentity";
+            this.IsIdentity.ReadOnly = true;
+            // 
+            // Scale
+            // 
+            this.Scale.DataPropertyName = "Scale";
+            this.Scale.HeaderText = "Scale";
+            this.Scale.Name = "Scale";
+            this.Scale.ReadOnly = true;
+            this.Scale.Visible = false;
+            // 
+            // Prec
+            // 
+            this.Prec.DataPropertyName = "Prec";
+            this.Prec.HeaderText = "精準長度";
+            this.Prec.Name = "Prec";
+            this.Prec.ReadOnly = true;
+            this.Prec.Visible = false;
             // 
             // groupBox2
             // 
@@ -698,12 +845,16 @@
             this.tabControl1.Controls.Add(this.tab1);
             this.tabControl1.Controls.Add(this.tab2);
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Location = new System.Drawing.Point(5, 2);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Location = new System.Drawing.Point(12, 3);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1527, 726);
-            this.tabControl1.TabIndex = 0;
+            this.tabControl1.TabIndex = 3;
+            this.tabControl1.Text = "產生SP";
             // 
             // tabPage1
             // 
@@ -724,143 +875,62 @@
             this.rblReadMe.TabIndex = 0;
             this.rblReadMe.Text = "";
             // 
-            // ColumnName
+            // tabPage2
             // 
-            this.ColumnName.DataPropertyName = "ColumnName";
-            this.ColumnName.HeaderText = "名稱";
-            this.ColumnName.Name = "ColumnName";
-            this.ColumnName.ReadOnly = true;
-            this.ColumnName.Width = 150;
+            this.tabPage2.Controls.Add(this.rtbxInsertSP);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1519, 697);
+            this.tabPage2.TabIndex = 3;
+            this.tabPage2.Text = "InsertSP";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // DataType
+            // rtbxInsertSP
             // 
-            this.DataType.DataPropertyName = "DataType";
-            this.DataType.HeaderText = "型別";
-            this.DataType.Name = "DataType";
-            this.DataType.ReadOnly = true;
+            this.rtbxInsertSP.Location = new System.Drawing.Point(0, 0);
+            this.rtbxInsertSP.Name = "rtbxInsertSP";
+            this.rtbxInsertSP.Size = new System.Drawing.Size(1344, 687);
+            this.rtbxInsertSP.TabIndex = 1;
+            this.rtbxInsertSP.Text = "";
             // 
-            // Length
+            // tabPage3
             // 
-            this.Length.DataPropertyName = "Length";
-            this.Length.HeaderText = "長度";
-            this.Length.Name = "Length";
-            this.Length.ReadOnly = true;
-            this.Length.Width = 50;
+            this.tabPage3.Controls.Add(this.rtbxUpdateSP);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(1519, 697);
+            this.tabPage3.TabIndex = 4;
+            this.tabPage3.Text = "UpdateSP";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // IsNullable
+            // rtbxUpdateSP
             // 
-            this.IsNullable.DataPropertyName = "IsNullable";
-            this.IsNullable.HeaderText = "Null?";
-            this.IsNullable.Name = "IsNullable";
-            this.IsNullable.ReadOnly = true;
-            this.IsNullable.Width = 50;
+            this.rtbxUpdateSP.Location = new System.Drawing.Point(3, 6);
+            this.rtbxUpdateSP.Name = "rtbxUpdateSP";
+            this.rtbxUpdateSP.Size = new System.Drawing.Size(1344, 687);
+            this.rtbxUpdateSP.TabIndex = 2;
+            this.rtbxUpdateSP.Text = "";
             // 
-            // ISPrimaryKey
+            // tabPage4
             // 
-            this.ISPrimaryKey.DataPropertyName = "ISPrimaryKey";
-            this.ISPrimaryKey.HeaderText = "PKey";
-            this.ISPrimaryKey.Name = "ISPrimaryKey";
-            this.ISPrimaryKey.ReadOnly = true;
-            this.ISPrimaryKey.Width = 50;
+            this.tabPage4.Controls.Add(this.rbxPagingQuery);
+            this.tabPage4.Location = new System.Drawing.Point(4, 25);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(1519, 697);
+            this.tabPage4.TabIndex = 5;
+            this.tabPage4.Text = "PagingQuerySP";
+            this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // ColumnDes
+            // rbxPagingQuery
             // 
-            this.ColumnDes.DataPropertyName = "ColumnDes";
-            this.ColumnDes.HeaderText = "欄位描述";
-            this.ColumnDes.Name = "ColumnDes";
-            this.ColumnDes.ReadOnly = true;
-            this.ColumnDes.Width = 150;
-            // 
-            // IsIdentity
-            // 
-            this.IsIdentity.DataPropertyName = "IsIdentity";
-            this.IsIdentity.HeaderText = "是否流水編號";
-            this.IsIdentity.Name = "IsIdentity";
-            this.IsIdentity.ReadOnly = true;
-            // 
-            // Scale
-            // 
-            this.Scale.DataPropertyName = "Scale";
-            this.Scale.HeaderText = "Scale";
-            this.Scale.Name = "Scale";
-            this.Scale.ReadOnly = true;
-            this.Scale.Visible = false;
-            // 
-            // Prec
-            // 
-            this.Prec.DataPropertyName = "Prec";
-            this.Prec.HeaderText = "精準長度";
-            this.Prec.Name = "Prec";
-            this.Prec.ReadOnly = true;
-            this.Prec.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "ColumnName";
-            this.dataGridViewTextBoxColumn1.HeaderText = "名稱";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 200;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "DataType";
-            this.dataGridViewTextBoxColumn2.HeaderText = "型別";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "Length";
-            this.dataGridViewTextBoxColumn3.HeaderText = "長度";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "IsNullable";
-            this.dataGridViewTextBoxColumn6.HeaderText = "Null?";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
-            this.dataGridViewTextBoxColumn6.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.DataPropertyName = "ISPrimaryKey";
-            this.dataGridViewTextBoxColumn8.HeaderText = "PKey";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            this.dataGridViewTextBoxColumn8.ReadOnly = true;
-            this.dataGridViewTextBoxColumn8.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "ColumnDes";
-            this.dataGridViewTextBoxColumn7.HeaderText = "欄位描述";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.ReadOnly = true;
-            this.dataGridViewTextBoxColumn7.Width = 250;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "Scale";
-            this.dataGridViewTextBoxColumn5.HeaderText = "點後位數";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "Prec";
-            this.dataGridViewTextBoxColumn4.HeaderText = "精準長度";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            // 
-            // IsIdentityNo
-            // 
-            this.IsIdentityNo.DataPropertyName = "IsIdentity";
-            this.IsIdentityNo.HeaderText = "是否流水編號";
-            this.IsIdentityNo.Name = "IsIdentityNo";
-            this.IsIdentityNo.ReadOnly = true;
+            this.rbxPagingQuery.Location = new System.Drawing.Point(6, 7);
+            this.rbxPagingQuery.Name = "rbxPagingQuery";
+            this.rbxPagingQuery.Size = new System.Drawing.Size(1344, 687);
+            this.rbxPagingQuery.TabIndex = 3;
+            this.rbxPagingQuery.Text = "";
             // 
             // PocoFrom
             // 
@@ -885,6 +955,9 @@
             this.groupBox1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -965,6 +1038,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn IsIdentity;
         private System.Windows.Forms.DataGridViewTextBoxColumn Scale;
         private System.Windows.Forms.DataGridViewTextBoxColumn Prec;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.RichTextBox rtbxInsertSP;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.RichTextBox rtbxUpdateSP;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.RichTextBox rbxPagingQuery;
     }
 }
 

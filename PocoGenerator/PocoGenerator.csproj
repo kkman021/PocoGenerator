@@ -111,6 +111,9 @@
   <ItemGroup>
     <Content Include="Library\Oracle.ManagedDataAccess.dll" />
     <Content Include="ReadMe.txt" />
+    <Content Include="Template\Template.GetPagingtSP.txt" />
+    <Content Include="Template\Template.UpdateSP.txt" />
+    <Content Include="Template\Template.InsertSP.txt" />
     <Content Include="Template\Template.Model.txt" />
   </ItemGroup>
   <ItemGroup>

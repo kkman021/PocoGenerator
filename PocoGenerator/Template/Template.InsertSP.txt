@@ -1,0 +1,29 @@
+﻿-- =============================================
+-- Author:
+-- Create date:
+-- Description:	新增<<className>>
+-- =============================================
+CREATE PROCEDURE [dbo].[uspInsert<<className>>]
+	<<procedureParameters>>
+AS
+BEGIN TRY
+	BEGIN
+		SET NOCOUNT ON;
+
+INSERT INTO dbo.<<className>>
+(
+	<<procedureColumns>>
+)
+VALUES
+(
+	<<procedureCondition>>
+)
+
+	END
+END TRY
+BEGIN CATCH
+
+END CATCH
+
+	RETURN 1
+

@@ -1,0 +1,40 @@
+﻿-- =============================================
+-- Author:
+-- Create date:
+-- Description:	取得<<className>>分頁後結果
+-- =============================================
+CREATE PROCEDURE [dbo].[uspGet<<className>>Paging]
+	@CurrentPage INT,
+	@PageSize INT
+AS
+BEGIN TRY
+	BEGIN
+		DECLARE @FirstRecord INT
+		DECLARE @LastRecord INT
+		/* 計算分頁資料區間 */
+		IF @PageSize > 0
+			BEGIN
+				SET @FirstRecord = ((@CurrentPage - 1) * @PageSize) + 1
+				SET @LastRecord = @CurrentPage * @PageSize
+			END
+
+		SET NOCOUNT ON;
+
+		SELECT
+			*
+		FROM (
+			SELECT
+				(COUNT(<<FirstColumn>>) OVER (ORDER BY <<FirstColumn>> RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING))	AS TotalRecords,
+				ROW_NUMBER() OVER (ORDER BY <<FirstColumn>> DESC)															AS RowNumber,
+				<<procedureColumns>>
+			FROM <<className>> WITH (NOLOCK)
+			WHERE 1 = 1) A
+		WHERE RowNumber BETWEEN ISNULL(@FirstRecord, RowNumber) AND ISNULL(@LastRecord, RowNumber)
+		ORDER BY RowNumber
+		ASC
+
+	END
+END TRY
+BEGIN CATCH
+
+END CATCH

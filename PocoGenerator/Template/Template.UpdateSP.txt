@@ -1,0 +1,25 @@
+﻿-- =============================================
+-- Author:
+-- Create date:
+-- Description:	新增<<className>>
+-- =============================================
+CREATE PROCEDURE [dbo].[uspUpdate<<className>>]
+	<<procedureParameters>>
+AS
+BEGIN TRY
+	BEGIN
+		SET NOCOUNT ON;
+
+		UPDATE dbo.<<className>>
+		SET
+			<<UpdateColumns>>
+		WHERE
+			<<TODO加入更新條件>>
+	END
+END TRY
+BEGIN CATCH
+
+END CATCH
+
+	RETURN 1
+
